@@ -1,29 +1,29 @@
-const http = require("http");
-const url = require("url");
+import http from "http";
+const port = process.env.PORT || 3000;
 
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
+// Функція обробки маршрутів
+function handleRequest(req, res) {
+  const url = req.url;
 
-  if (parsedUrl.pathname === "/") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
+  if (url === "/") {
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
     res.end("Home Page");
-  } else if (parsedUrl.pathname === "/profile") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Your Profile");
-  } else if (parsedUrl.pathname === "/about") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Here you can read about us");
-  } else if (parsedUrl.pathname === "/xz") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Last one");
+  } else if (url === "/profile") {
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end('Your Profile".');
+  } else if (url === "/about") {
+    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end('Here you can read about us".');
   } else {
-    res.writeHead(404, { "Content-Type": "text/plain" });
-    res.end("404 sorry, can`t find this page");
+    res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("Сторінку не знайдено");
   }
-});
+}
 
-const port = 3000;
+// Створити сервер
+const server = http.createServer(handleRequest);
 
+// Слухати на заданому порті
 server.listen(port, () => {
   console.log(`Сервер запущено на http://localhost:${port}`);
 });
